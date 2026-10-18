@@ -1,0 +1,257 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --mk-bg: #f4f8f7;
+  --mk-surface: rgba(255,255,255,.86);
+  --mk-ink: #102f35;
+  --mk-muted: #607477;
+  --mk-primary: #0b655d;
+  --mk-primary-2: #0f8a7d;
+  --mk-line: rgba(17,68,72,.10);
+  --mk-glow: rgba(15,138,125,.18);
+}
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  @apply text-ink font-body antialiased;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(47,160,145,.13), transparent 28rem),
+    radial-gradient(circle at 90% 10%, rgba(224,142,29,.10), transparent 24rem),
+    linear-gradient(135deg, #f7faf9 0%, #eef5f3 100%);
+  min-height: 100vh;
+}
+
+button, input, select, textarea { font: inherit; }
+
+h1,h2,h3,h4 { @apply font-heading text-ink; }
+
+a:focus-visible, button:focus-visible, input:focus-visible,
+select:focus-visible, textarea:focus-visible {
+  outline: 3px solid #0f8a7d;
+  outline-offset: 3px;
+}
+
+@layer components {
+  .kiosk-btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-8 py-5 text-lg font-bold text-white transition-all duration-300;
+    background: linear-gradient(135deg, #0b655d, #0f8a7d);
+    box-shadow: 0 14px 35px rgba(11,101,93,.24), inset 0 1px 0 rgba(255,255,255,.2);
+  }
+  .kiosk-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 42px rgba(11,101,93,.30), inset 0 1px 0 rgba(255,255,255,.2);
+  }
+  .kiosk-btn-primary:active { transform: translateY(0) scale(.985); }
+
+  .kiosk-btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border px-8 py-5 text-lg font-bold transition-all duration-300;
+    background: rgba(255,255,255,.78);
+    border-color: rgba(16,67,70,.13);
+    color: #16323a;
+    box-shadow: 0 8px 25px rgba(22,50,58,.06);
+  }
+  .kiosk-btn-secondary:hover {
+    transform: translateY(-2px);
+    border-color: rgba(15,138,125,.35);
+    box-shadow: 0 14px 32px rgba(22,50,58,.10);
+  }
+
+  .kiosk-card {
+    @apply rounded-3xl border p-6 transition-all duration-300;
+    background: rgba(255,255,255,.82);
+    border-color: rgba(17,68,72,.10);
+    box-shadow: 0 10px 35px rgba(22,50,58,.065), inset 0 1px 0 rgba(255,255,255,.85);
+    backdrop-filter: blur(16px);
+  }
+  .kiosk-card:hover {
+    box-shadow: 0 16px 42px rgba(22,50,58,.09), inset 0 1px 0 rgba(255,255,255,.9);
+  }
+
+  .mk-glass {
+    background: rgba(255,255,255,.68);
+    border: 1px solid rgba(255,255,255,.75);
+    box-shadow: 0 20px 60px rgba(20,55,58,.10);
+    backdrop-filter: blur(22px);
+  }
+
+  .mk-section-title {
+    @apply text-3xl font-extrabold tracking-tight sm:text-4xl;
+  }
+
+  /* ---- Phase 9: Doctor Dashboard design system -----------------------
+     Same glass/gradient language as the kiosk-* classes above (this is
+     one product, not two skins) but sized for a dense, desk-and-mouse
+     clinical dashboard instead of a walk-up touchscreen. */
+  .doc-card {
+    @apply rounded-3xl border p-5 transition-all duration-300;
+    background: rgba(255, 255, 255, 0.82);
+    border-color: rgba(17, 68, 72, 0.1);
+    box-shadow: 0 10px 35px rgba(22, 50, 58, 0.065), inset 0 1px 0 rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+  }
+  .doc-card-tight {
+    @apply rounded-2xl border p-4 transition-all duration-300;
+    background: rgba(255, 255, 255, 0.78);
+    border-color: rgba(17, 68, 72, 0.1);
+    box-shadow: 0 6px 20px rgba(22, 50, 58, 0.055);
+    backdrop-filter: blur(14px);
+  }
+  .doc-btn-primary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-xl px-3.5 py-2
+           text-sm font-bold text-white transition-all duration-200
+           active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none;
+    background: linear-gradient(135deg, #0b655d, #0f8a7d);
+    box-shadow: 0 8px 20px rgba(11, 101, 93, 0.22);
+  }
+  .doc-btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(11, 101, 93, 0.28);
+  }
+  .doc-btn-secondary {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-xl border px-3.5 py-2
+           text-sm font-bold transition-all duration-200 active:scale-[0.98]
+           disabled:opacity-40 disabled:pointer-events-none;
+    background: rgba(255, 255, 255, 0.78);
+    border-color: rgba(16, 67, 70, 0.13);
+    color: #16323a;
+  }
+  .doc-btn-secondary:hover {
+    border-color: rgba(15, 138, 125, 0.4);
+    color: #0b655d;
+  }
+  .doc-btn-ghost {
+    @apply inline-flex items-center justify-center gap-1.5 rounded-lg px-2.5 py-1.5
+           text-xs font-bold text-muted transition hover:bg-white/70 hover:text-ink;
+  }
+  .doc-input {
+    @apply w-full rounded-xl border bg-white/80 px-3 py-2 text-sm text-ink
+           placeholder:text-muted/70 focus:border-[#0f8a7d] focus:outline-none;
+    border-color: rgba(16, 67, 70, 0.15);
+  }
+  .doc-badge {
+    @apply inline-flex shrink-0 items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-bold;
+  }
+  .doc-section-title {
+    @apply flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-muted;
+  }
+
+  /* Luxury Hospitality & Fixture Card Design System */
+  .glass-panel-luxury {
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 20px 50px -12px rgba(11, 47, 53, 0.08), 0 0 0 1px rgba(15, 138, 125, 0.05);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+  .glass-dark-luxury {
+    background: linear-gradient(135deg, rgba(11, 23, 33, 0.92) 0%, rgba(7, 19, 23, 0.96) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .fixture-tile {
+    @apply relative overflow-hidden rounded-[26px] border transition-all duration-300;
+    background: rgba(255, 255, 255, 0.85);
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 12px 36px -8px rgba(18, 52, 58, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(18px);
+  }
+  .fixture-tile:hover {
+    transform: translateY(-4px);
+    border-color: rgba(16, 185, 129, 0.4);
+    box-shadow: 0 24px 55px -12px rgba(16, 185, 129, 0.16), 0 0 0 1px rgba(16, 185, 129, 0.2);
+  }
+
+  .fixture-tile-dark {
+    @apply relative overflow-hidden rounded-[26px] border transition-all duration-300;
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.94), rgba(7, 19, 24, 0.98));
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+  }
+  .fixture-tile-dark:hover {
+    transform: translateY(-4px);
+    border-color: rgba(56, 189, 248, 0.45);
+    box-shadow: 0 25px 60px -10px rgba(6, 182, 212, 0.22), 0 0 25px rgba(6, 182, 212, 0.15);
+  }
+
+  .glow-badge-emerald {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black uppercase tracking-wider;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #065f46;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+  }
+
+  .glow-badge-cyan {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-black uppercase tracking-wider;
+    background: rgba(6, 182, 212, 0.12);
+    border: 1px solid rgba(6, 182, 212, 0.35);
+    color: #0e7490;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+  }
+
+  .hospitality-gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #0b655d 0%, #0f8a7d 45%, #2a9d8f 100%);
+  }
+
+  .hospitality-gradient-dark-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #ffffff 0%, #a7f3d0 45%, #38bdf8 100%);
+  }
+
+  .btn-hospitality-gold {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-7 py-4 text-sm font-bold text-slate-900 transition-all duration-300;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 50%, #d97706 100%);
+    box-shadow: 0 12px 30px rgba(245, 158, 11, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+  .btn-hospitality-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 36px rgba(245, 158, 11, 0.36);
+  }
+}
+
+/* Premium ambient background */
+.mk-ambient {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: -1;
+}
+.mk-orb {
+  position: absolute;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 999px;
+  filter: blur(80px);
+  opacity: .38;
+  animation: mk-float 16s ease-in-out infinite;
+}
+.mk-orb.one { left: -10rem; top: 8%; background: radial-gradient(circle, rgba(16,185,129,.24), transparent 70%); }
+.mk-orb.two { right: -12rem; bottom: 8%; background: radial-gradient(circle, rgba(6,182,212,.22), transparent 70%); animation-delay: -6s; }
+.mk-orb.three { left: 35%; top: 40%; width: 24rem; height: 24rem; background: radial-gradient(circle, rgba(245,158,11,.14), transparent 70%); animation-delay: -10s; }
+
+@keyframes mk-float {
+  0%,100% { transform: translate3d(0,0,0) scale(1); }
+  50% { transform: translate3d(0,-30px,0) scale(1.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes fadeIn { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
+
